@@ -5,7 +5,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  
+  BrowserRouter,
 } from "react-router-dom";
 
 
@@ -16,11 +16,11 @@ export class App extends Component {
     return (
       
       
-       
+      <BrowserRouter basename='/Newsapi'>
         <Router>
            <Navbar/>
           <Switch>
-          <Route exact  path="/">
+          <Route exact  path="/Newsapi">
              <News key="general" category="general" />
           </Route>
           <Route exact  path="/science">
@@ -50,6 +50,7 @@ export class App extends Component {
        
       </div>
       </Router>
+      </BrowserRouter>
     )
   }
 }

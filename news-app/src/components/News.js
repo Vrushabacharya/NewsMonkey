@@ -170,7 +170,7 @@ export class News extends Component {
       console.log("hello");
       this.state = {
         articles:this.articles,
-        loading: false,
+        loading: true,
         page:1
       }
     }

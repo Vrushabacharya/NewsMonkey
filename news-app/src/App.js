@@ -16,11 +16,11 @@ export class App extends Component {
     return (
       
       
-      <BrowserRouter basename='/Newsapi'>
+      <BrowserRouter basename='/NewsTiger'>
         <Router>
            <Navbar/>
           <Switch>
-          <Route exact  path="/Newsapi">
+          <Route exact  path="/">
              <News key="general" category="general" />
           </Route>
           <Route exact  path="/science">

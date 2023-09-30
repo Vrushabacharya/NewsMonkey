@@ -16,7 +16,7 @@ export class App extends Component {
     return (
       
       
-      <BrowserRouter basename='/NewsTiger'>
+      <BrowserRouter basename='/NewsMonkey'>
         <Router>
            <Navbar/>
           <Switch>

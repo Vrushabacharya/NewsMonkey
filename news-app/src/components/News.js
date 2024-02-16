@@ -5,77 +5,67 @@ class News extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      articles: [], // Initialize articles as an empty array
+      articles: [],
       loading: true,
       page: 1,
     };
   }
 
-  async componentDidMount() {
-    console.log("cdm");
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=23e2b229d67b417d9844262da6584550&pageSize=20`;
+  async fetchNewsData(page) {
+    const { country, category } = this.props;
+    const apiKey = '23e2b229d67b417d9844262da6584550';
+    const pageSize = 20;
+
+    const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`;
 
     try {
       const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch news data. Status: ${response.status}`);
+      }
+
       const data = await response.json();
 
       if (data.status === 'ok') {
-        this.setState({ articles: data.articles, loading: false });
+        return data.articles;
       } else {
-        console.error('Failed to fetch news data.');
-        this.setState({ loading: false });
+        throw new Error('Failed to fetch news data.');
       }
     } catch (error) {
-      console.error('An error occurred while fetching news data:', error);
-      this.setState({ loading: false });
+      console.error('An error occurred while fetching news data:', error.message);
+      return [];
     }
+  }
+
+  async componentDidMount() {
+    console.log("cdm");
+    const articles = await this.fetchNewsData(1);
+    this.setState({ articles, loading: false });
   }
 
   handlePrevious = async () => {
     const { page } = this.state;
     if (page <= 1) return;
 
-    
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=23e2b229d67b417d9844262da6584550&page=${page - 1}&pageSize=20`;
+    const newPage = page - 1;
+    const newArticles = await this.fetchNewsData(newPage);
 
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-
-      if (data.status === 'ok') {
-        this.setState({
-          page: page - 1,
-          articles: data.articles,
-        });
-      } else {
-        console.error('Failed to fetch news data.');
-      }
-    } catch (error) {
-      console.error('An error occurred while fetching news data:', error);
-    }
+    this.setState((prevState) => ({
+      page: newPage,
+      articles: newArticles,
+    }));
   };
 
   handleNext = async () => {
     const { page } = this.state;
+    const newPage = page + 1;
+    const newArticles = await this.fetchNewsData(newPage);
 
-    
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=23e2b229d67b417d9844262da6584550&page=${page + 1}&pageSize=20`;
-
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-
-      if (data.status === 'ok') {
-        this.setState({
-          page: page + 1,
-          articles: data.articles,
-        });
-      } else {
-        console.error('Failed to fetch news data.');
-      }
-    } catch (error) {
-      console.error('An error occurred while fetching news data:', error);
-    }
+    this.setState((prevState) => ({
+      page: newPage,
+      articles: newArticles,
+    }));
   };
 
   render() {
@@ -87,21 +77,25 @@ class News extends Component {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <div className="row">
-            {articles.map((element) => (
-              <div className="col-md-3" key={element.url}>
-                <Newsitems
-                  newsurl={element.url}
-                  title={element.title ? element.title : ''}
-                  description={element.description ? element.description.slice(0, 45) : ''}
-                  imageurl={element.urlToImage}
-                  author={element.author}
-                  Date={element.publishedAt}
-                  source={element.source.name}
-                />
-              </div>
-            ))}
-          </div>
+          articles.length > 0 ? (
+            <div className="row">
+              {articles.map((element) => (
+                <div className="col-md-3" key={element.url}>
+                  <Newsitems
+                    newsurl={element.url}
+                    title={element.title ? element.title : ''}
+                    description={element.description ? element.description.slice(0, 45) : ''}
+                    imageurl={element.urlToImage}
+                    author={element.author}
+                    Date={element.publishedAt}
+                    source={element.source.name}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>No articles found.</p>
+          )
         )}
         <div className="container d-flex justify-content-between">
           <button type="button" disabled={page <= 1} onClick={this.handlePrevious} className="btn btn-dark">

@@ -13,8 +13,7 @@ class News extends Component {
 
   async componentDidMount() {
     console.log("cdm");
-    const apiKey = 'YOUR_NEWS_API_KEY'; // Replace with your actual News API key
-    const url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=23e2b229d67b417d9844262da6584550&pageSize=20`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=23e2b229d67b417d9844262da6584550&pageSize=20`;
 
     try {
       const response = await fetch(url);
@@ -36,8 +35,8 @@ class News extends Component {
     const { page } = this.state;
     if (page <= 1) return;
 
-    const apiKey = 'YOUR_NEWS_API_KEY'; // Replace with your actual News API key
-    const url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=23e2b229d67b417d9844262da6584550&page=${page - 1}&pageSize=20`;
+    
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=23e2b229d67b417d9844262da6584550&page=${page - 1}&pageSize=20`;
 
     try {
       const response = await fetch(url);
@@ -59,8 +58,8 @@ class News extends Component {
   handleNext = async () => {
     const { page } = this.state;
 
-    const apiKey = 'YOUR_NEWS_API_KEY'; // Replace with your actual News API key
-    const url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=23e2b229d67b417d9844262da6584550&page=${page + 1}&pageSize=20`;
+    
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=23e2b229d67b417d9844262da6584550&page=${page + 1}&pageSize=20`;
 
     try {
       const response = await fetch(url);

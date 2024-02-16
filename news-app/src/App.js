@@ -21,28 +21,28 @@ export class App extends Component {
            <Navbar/>
           <Switch>
           <Route exact  path="/">
-             <News key="general" category="general" />
+             <News key="general" country="in" category="general" />
           </Route>
           <Route exact  path="/science">
-             <News key="science" category="science"/>
+             <News key="science" country="in"  category="science"/>
           </Route>
           <Route exact  path="/Entertainment">
-             <News key="Entertainment" category="Entertainment"/>
+             <News key="Entertainment" country="in"  category="Entertainment"/>
           </Route>
           <Route exact  path="/technology">
-             <News key="technology" category="technology"/>
+             <News key="technology" country="in"  category="technology"/>
           </Route>
-          <Route exact  path="/bussiness">
-             <News key="bussiness" category="bussiness"/>
+          <Route exact  path="/business">
+             <News key="bussiness" country="in"  category="business"/>
           </Route>
           <Route exact  path="/health">
-             <News key="health" category="health"/>
+             <News key="health" country="in"  category="health"/>
           </Route>
           <Route exact  path="/politics">
-             <News key="politics" category="politics"/>
+             <News key="politics" country="in"  category="politics"/>
           </Route>
           <Route exact  path="/sports">
-             <News key="sports" category="sports"/>
+             <News key="sports" country="in"  category="sports"/>
           </Route>
         </Switch>
           <div>

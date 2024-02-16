@@ -7,7 +7,7 @@ export class Navbar extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-lg bg-dark color-red">
+        <nav className="navbar navbar-expand-lg bg-light color-red">
   <div className="container-fluid ">
     <Link className="navbar-brand text-light"to="#">NewsTiger</Link>
     <button className="navbar-hrefggler" type="buthrefn" data-bs-hrefggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="hrefggle navigation">
